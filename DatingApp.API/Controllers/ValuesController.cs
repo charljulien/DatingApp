@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
-    // http://localhost:5000/api/values/5
+    [Authorize] // everything inside this method has to be an authorized request. To be done in Startup class
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -27,7 +28,7 @@ namespace DatingApp.API.Controllers
             return Ok(values);
         }
 
-        // GET api/values/5
+        [AllowAnonymous] //makes this method accessised to unauthorized users
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValues(int id)
         {
